@@ -1,9 +1,11 @@
 <?php
-
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -20,6 +22,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/adminview', function () {
     return Inertia::render('AdminView');
+    Route::get('/', [PostController::class,'index']);
+    Route::resource('post', PostController::class)->except('index');
 })->middleware(['auth', 'verified'])->name('adminview');
 
 Route::middleware('auth')->group(function () {
